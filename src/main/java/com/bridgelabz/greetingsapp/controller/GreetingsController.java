@@ -14,9 +14,9 @@ public class GreetingsController {
 	@Autowired
 	GreetingService greetingService;
 	
-	  	@GetMapping("/getMap")
+	  	@GetMapping({"/",""})
 	    public String getMessage() {
-	        return "Hello World";
+	        return "Hello World!!";
 	    }
 
 	    @GetMapping("/getByParam")
@@ -33,5 +33,18 @@ public class GreetingsController {
 	    public String getbyservice() {
 	    	String message = greetingService.getmessage();
 	    	return message;
+	    }
+	    
+	    @SuppressWarnings("unused")
+		@GetMapping("/post")
+	    public String post(@RequestParam(required = false) String firstName,
+	    		@RequestParam(required = false) String lastName) {
+	        if (lastName == null) lastName = "";
+	        else if (firstName == null) firstName = "";
+	        else if (firstName == null && lastName == null) {
+	            firstName = "";
+	            lastName = "";
+	        }
+	        return greetingService.HelloByName(firstName, lastName);
 	    }
 }

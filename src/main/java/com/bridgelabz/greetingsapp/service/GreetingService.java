@@ -8,4 +8,8 @@ public class GreetingService {
 	public String getmessage() {
 		return "Hello World";
 	}
+
+	public String HelloByName(String firstName, String lastName) {
+	        return "Hello "+firstName+" "+lastName+"..!!";
+    }
 }
