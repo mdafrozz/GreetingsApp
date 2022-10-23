@@ -1,46 +1,53 @@
 package com.bridgelabz.greetingsapp.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bridgelabz.greetingsapp.model.GreetingsModel;
+import com.bridgelabz.greetingsapp.model.Greeting;
 import com.bridgelabz.greetingsapp.service.GreetingService;
 
 @RestController
+@RequestMapping("/greetings")
 public class GreetingsController {
-	
-	@Autowired
-	GreetingService greetingService;
-		//UC1
-	  	@GetMapping({"/",""})
+		
+		@Autowired
+	    GreetingService greetingService;
+
+	    //UC1
+	    @GetMapping("/")
 	    public String getMessage() {
-	        return "Hello World!!";
+	        return "Hello  World";
 	    }
 
-	    @GetMapping("/getByParam")
+	    @GetMapping("/param")
 	    public String getByParam(@RequestParam String name) {
 	        return "Hello" + name;
 	    }
 
-	    @GetMapping("/getPath/{name}")
+	    @GetMapping("/path/{name}")
 	    public String getPath(@PathVariable String name) {
 	        return "Hello" + name;
 	    }
+
 	    //UC2
-	    @GetMapping("/getbyservice")
-	    public String getbyservice() {
-	    	String message = greetingService.getmessage();
-	    	return message;
+	    @GetMapping("/getmessage")
+	    public String getByService() {
+	        String message = greetingService.getmessage();
+	        return message;
 	    }
+
 	    //UC3
 	    @SuppressWarnings("unused")
-		@GetMapping("/post")
-	    public String post(@RequestParam(required = false) String firstName,
+		@GetMapping("/hello")
+	    public String post(@RequestParam(required = false) String firstName, 
 	    		@RequestParam(required = false) String lastName) {
 	        if (lastName == null) lastName = "";
 	        else if (firstName == null) firstName = "";
@@ -48,12 +55,22 @@ public class GreetingsController {
 	            firstName = "";
 	            lastName = "";
 	        }
-	        return greetingService.HelloByName(firstName, lastName);
+	        return greetingService.getmsgByName(firstName, lastName);
 	    }
-	  //UC4
-	    @PostMapping("/save")
-	    public GreetingsModel get(@RequestBody GreetingsModel model){
-	     GreetingsModel newModel = greetingService.add(model);
-	     return newModel;
+
+	    //UC4
+	    @PostMapping("/add")
+	    public Greeting getdata(@RequestBody Greeting model) {
+	        Greeting model1 = greetingService.addData(model);
+	        return model1;
 	    }
-}
+	    
+	    //UC5
+	    @GetMapping("/get/{id}")
+	    public Optional<Greeting> findById(@PathVariable int id) {
+	        Optional<Greeting> response = greetingService.findById(id);
+	        return response;
+	    }
+	    
+	    
+	}
