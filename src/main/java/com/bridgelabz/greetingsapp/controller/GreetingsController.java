@@ -1,5 +1,6 @@
 package com.bridgelabz.greetingsapp.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,5 +73,10 @@ public class GreetingsController {
 	        return response;
 	    }
 	    
-	    
+	    //UC6
+	    @GetMapping("/getall")
+	    public List<Greeting> showAll() {
+	        List<Greeting> response = greetingService.showAll();
+	        return response;
+	    }
 	}
