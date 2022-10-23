@@ -43,5 +43,14 @@ public class GreetingService {
         updateUser = repo.save(getUser);
         return updateUser;
     }
-
+    
+    public String delete(int id) {
+        Optional<Greeting> newUser = repo.findById(id);
+        if (newUser.isPresent()) {
+            repo.delete(newUser.get());
+            return "Deleted record with id number: " + id;
+        } else {
+            return "Record not Found";
+        }
+    }
 }

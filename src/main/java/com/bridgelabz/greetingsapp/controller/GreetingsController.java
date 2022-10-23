@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -86,6 +87,14 @@ public class GreetingsController {
 	    public Greeting edit(@RequestBody Greeting model, @PathVariable int id) {
 	        Greeting response;
 	        response = greetingService.edit(id, model);
+	        return response;
+	    }
+	    
+	  //UC8
+	    @DeleteMapping("/delete/{id}")
+	    public String delete(@PathVariable int id) {
+	        String response;
+	        response = greetingService.delete(id);
 	        return response;
 	    }
 	}
