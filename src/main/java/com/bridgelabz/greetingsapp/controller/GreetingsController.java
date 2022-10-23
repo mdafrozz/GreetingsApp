@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -77,6 +78,14 @@ public class GreetingsController {
 	    @GetMapping("/getall")
 	    public List<Greeting> showAll() {
 	        List<Greeting> response = greetingService.showAll();
+	        return response;
+	    }
+	    
+	  //UC7
+	    @PutMapping("/edit/{id}") 
+	    public Greeting edit(@RequestBody Greeting model, @PathVariable int id) {
+	        Greeting response;
+	        response = greetingService.edit(id, model);
 	        return response;
 	    }
 	}
