@@ -35,5 +35,13 @@ public class GreetingService {
         return repo.findAll();
     }
     
+    public Greeting edit(int id, Greeting model) {
+        Greeting getUser = repo.getReferenceById(id);
+        getUser.setFirstName(model.getFirstName());
+        getUser.setLastName(model.getLastName());
+        Greeting updateUser;
+        updateUser = repo.save(getUser);
+        return updateUser;
+    }
 
 }
